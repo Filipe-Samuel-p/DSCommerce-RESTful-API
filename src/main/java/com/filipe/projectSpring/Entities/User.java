@@ -1,5 +1,6 @@
 package com.filipe.projectSpring.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore // necessário para evitar loop na associação entre pedido e usuário
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
