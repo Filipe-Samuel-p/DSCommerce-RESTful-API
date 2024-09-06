@@ -36,12 +36,7 @@ public class TestConfig implements CommandLineRunner {
       @Override
       public void run(String... args) throws Exception {
 
-            User u1 = new User("maria@gmail.com",null,"maria@gmail.com" , "999999","123456");
-            User u2 = new User("alex@gmail.com",null, "Alex green", "999999","123456");
 
-            Order o1 = new Order(u1, Instant.parse("2019-06-20T19:53:07Z"), null,OrderStatus.PAID);
-            Order o2 = new Order(u2, Instant.parse("2019-07-21T03:42:10Z"), null,OrderStatus.WAITING_PAYMENT);
-            Order o3 = new Order(u1, Instant.parse("2019-07-22T15:21:22Z"), null,OrderStatus.CANCELED);
 
             Category cat1 = new Category(null, "Electronics");
             Category cat2 = new Category(null, "Books");
@@ -53,11 +48,28 @@ public class TestConfig implements CommandLineRunner {
             Product p4 =  new Product("Donec aliquet odio ac rhoncus cursus.", null, "", "PC Gamer", 1200.0);
             Product p5 =  new Product("Cras fringilla convallis sem vel faucibus.", null, "", "Rails for Dummies", 100.90);
 
+            categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+            productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
+            p1.getCategories().add(cat2);
+            p2.getCategories().add(cat1);
+            p2.getCategories().add(cat3);
+            p3.getCategories().add(cat3);
+            p4.getCategories().add(cat3);
+            p5.getCategories().add(cat2);
+
+            productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
+            User u1 = new User("maria@gmail.com",null,"maria@gmail.com" , "999999","123456");
+            User u2 = new User("alex@gmail.com",null, "Alex green", "999999","123456");
+
+            Order o1 = new Order(u1, Instant.parse("2019-06-20T19:53:07Z"), null,OrderStatus.PAID);
+            Order o2 = new Order(u2, Instant.parse("2019-07-21T03:42:10Z"), null,OrderStatus.WAITING_PAYMENT);
+            Order o3 = new Order(u1, Instant.parse("2019-07-22T15:21:22Z"), null,OrderStatus.CANCELED);
 
             userRepository.saveAll(Arrays.asList(u1,u2));
             orderRepository.saveAll(Arrays.asList(o1,o2,o3));
-            categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
-            productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
 
       }
 }
