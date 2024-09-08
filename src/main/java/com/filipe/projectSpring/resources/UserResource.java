@@ -41,4 +41,11 @@ public class UserResource {
         //created retorna um 201, e para isso, precisa mandar um URI.
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    } // @PathVariable é pro Long id ser reconhecido como uma variável pela URL
+
+
 }
