@@ -31,5 +31,17 @@ public class UserService {
     public void delete(Long id){
         repository.deleteById(id);
     }
+
+    public User update(Long id, User obj){
+        User entity = repository.getReferenceById(id); //método para instanciar um usuário,
+       udpateData(entity,obj);                          // mas não vai no bando de dados ainda. Ele deixa um objeto para se trablhar com ele
+       return repository.save(entity);                  // e depois ir ao BD. É mais eficiente assim.
+    }
+
+    private void udpateData(User entity, User obj){
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
+    }
 }
 
