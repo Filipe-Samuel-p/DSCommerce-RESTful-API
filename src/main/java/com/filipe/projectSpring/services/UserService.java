@@ -4,6 +4,7 @@ import com.filipe.projectSpring.Entities.User;
 import com.filipe.projectSpring.repositories.UserRepository;
 import com.filipe.projectSpring.services.exceptions.DataBaseException;
 import com.filipe.projectSpring.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -45,9 +46,13 @@ public class UserService {
     }
 
     public User update(Long id, User obj){
-        User entity = repository.getReferenceById(id); //método para instanciar um usuário,
-       udpateData(entity,obj);                          // mas não vai no bando de dados ainda. Ele deixa um objeto para se trablhar com ele
-       return repository.save(entity);                  // e depois ir ao BD. É mais eficiente assim.
+        try {
+            User entity = repository.getReferenceById(id); //método para instanciar um usuário,
+            udpateData(entity, obj);                          // mas não vai no bando de dados ainda. Ele deixa um objeto para se trablhar com ele
+            return repository.save(entity);                  // e depois ir ao BD. É mais eficiente assim.
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void udpateData(User entity, User obj){
