@@ -2,6 +2,7 @@ package com.filipe.projectSpring.services;
 
 import com.filipe.projectSpring.Entities.User;
 import com.filipe.projectSpring.repositories.UserRepository;
+import com.filipe.projectSpring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id)); // método que tenta dar o get, se não achar, vai lançar uma excecao
+        // como o throw é pra uma excecao personalizada, a gente precisa indicar qual excecao.
     }
 
     public User insert(User obj){
