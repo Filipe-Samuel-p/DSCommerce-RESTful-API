@@ -17,7 +17,7 @@ public class Payment {
     private Instant moment;
 
     @OneToOne
-    @MapsId //payment é uma entidade secundária, por isso ambas compartilham a mesma chave primária (na classe que depende é onde aparece @MapsId)
+    @MapsId //payment é uma entidade secundária, por isso ambas compartilham a mesma chave primária, ou seja, a PK de Payment é a PK da entidade Order
     private Order order;
 
     public Payment(){}
