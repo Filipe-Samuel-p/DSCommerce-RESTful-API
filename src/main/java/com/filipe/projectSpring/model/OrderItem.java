@@ -2,6 +2,7 @@ package com.filipe.projectSpring.model;
 
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -9,7 +10,7 @@ import jakarta.persistence.Table;
 @Table(name ="tb_OrderItem")
 public class OrderItem {
 
-    @Embeddable
+    @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
