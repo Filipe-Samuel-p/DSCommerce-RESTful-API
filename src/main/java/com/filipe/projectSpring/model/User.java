@@ -18,7 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+
+    @Column(unique = true) // Indica que o email é um campo único, não se repete
     private String email;
+
     private String phone;
     private LocalDate birthDate;
     private String password;

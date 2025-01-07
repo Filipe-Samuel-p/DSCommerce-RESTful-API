@@ -3,6 +3,9 @@ package com.filipe.projectSpring.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_category")
 public class Category {
@@ -13,8 +16,10 @@ public class Category {
 
     private String name;
 
-    public Category (){}
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
 
+    public Category (){}
     public Category(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -34,5 +39,9 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 }
