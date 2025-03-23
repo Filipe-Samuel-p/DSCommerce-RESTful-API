@@ -3,6 +3,7 @@ package com.filipe.projectSpring.controllers.handlers;
 import com.filipe.projectSpring.dto.CustomErrorDTO;
 import com.filipe.projectSpring.dto.ValidationErrorDTO;
 import com.filipe.projectSpring.service.exceptions.DatabaseException;
+import com.filipe.projectSpring.service.exceptions.ForbiddenException;
 import com.filipe.projectSpring.service.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,13 @@ public class ControllerExceptionHandler {
         for (FieldError f : e.getBindingResult().getFieldErrors()) {
             err.addError(f.getField(), f.getDefaultMessage());
         }
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomErrorDTO> forbidden(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
