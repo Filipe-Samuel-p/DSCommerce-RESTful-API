@@ -1,6 +1,7 @@
 package com.filipe.projectSpring.repositories;
 
 import com.filipe.projectSpring.model.User;
+import com.filipe.projectSpring.projections.UserDetailsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
