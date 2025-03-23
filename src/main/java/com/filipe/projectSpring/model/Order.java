@@ -77,5 +77,11 @@ public class Order {
         return items.stream().map(OrderItem::getProduct).toList();
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
 
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 }
